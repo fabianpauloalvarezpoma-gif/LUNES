@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemáticas en la Vida Real: Fibonacci y Primos</title>
+    <style>
+        :root {
+            --primary-color: #2b6cb0;
+            --secondary-color: #319795;
+            --background-color: #f7fafc;
+            --card-color: #ffffff;
+            --text-color: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        
+        .contexto-seccion {
+            background-color: var(--card-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .contexto-seccion h2 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+       
+        .grid-herramientas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        
+        @media (min-width: 768px) {
+            .grid-herramientas {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .tarjeta-algoritmo {
+            background-color: var(--card-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tarjeta-algoritmo h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+
+        .explicacion-breve {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 15px;
+            background-color: #f7fafc;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        form {
+            margin-top: 15px;
+        }
+
+        .grupo-control {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2b6cb0;
+        }
+
+       
+        .cuadro-resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #edf2f7;
+            border-radius: 6px;
+            min-height: 50px;
+            font-weight: 500;
+            word-wrap: break-word;
+        }
+
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1 id="titulo-proyecto">Matemáticas que Resuelven Problemas</h1>
+            <p>Por: Paulo Alvarez — Desafío Web 2005</p>
+        </header>
+
+        <section class="contexto-seccion">
+            <h2>Contexto del Mundo Real</h2>
+            <p>
+                Las matemáticas no son solo teoría; estructuran los fenómenos de nuestro entorno. En esta plataforma analizamos dos aplicaciones fundamentales: el <strong>Ahorro Progresivo</strong> mediante la secuencia de Fibonacci, ideal para planificar metas financieras escalonadas, y la <strong>Seguridad Informática</strong> a través de Números Primos, esenciales para validar códigos de acceso robustos y llaves de cifrado en sistemas digitales.
+            </p>
+        </section>
+
+        <div class="grid-herramientas">
+
+            <section class="tarjeta-algoritmo">
+                <div>
+                    <h3>1. Plan de Ahorro Progresivo (Fibonacci)</h3>
+                    <p class="explicacion-breve">
+                        <strong>Algoritmo:</strong> Calcula cada depósito sumando los dos montos anteriores ($a + b$). Esto permite iniciar con montos bajos y subir el reto de ahorro de forma controlada mes a mes.
+                    </p>
+                    
+                    <form id="formFibonacci" onsubmit="return false;">
+                        <div class="grupo-control">
+                            <label for="meses">Cantidad de meses a simular:</label>
+                            <input type="number" id="meses" min="1" max="40" placeholder="Ej. 12" required>
+                        </div>
+                        <button type="button" onclick="calcularAhorroFibonacci()">Calcular Plan</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="cuadro-resultado" id="resultadoFibonacci">
+                        El plan generado aparecerá aquí...
+                    </div>
+                </div>
+            </section>
+
+            <section class="tarjeta-algoritmo">
+                <div>
+                    <h3>2. Validación de Claves (Números Primos)</h3>
+                    <p class="explicacion-breve">
+                        <strong>Algoritmo:</strong> Evalúa si un código o número es primo verificando si posee únicamente dos divisores exactos en la aritmética entera: el 1 y sí mismo.
+                    </p>
+                    
+                    <form id="formPrimos" onsubmit="return false;">
+                        <div class="grupo-control">
+                            <label for="codigoSeguridad">Código numérico a verificar:</label>
+                            <input type="number" id="codigoSeguridad" min="1" placeholder="Ej. 97" required>
+                        </div>
+                        <button type="button" onclick="verificarCodigoPrimo()">Validar Código</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="cuadro-resultado" id="resultadoPrimos">
+                        El estado de la clave aparecerá aquí...
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <section class="contexto-seccion">
+            <h2>Conclusión</h2>
+            <p>
+                Al usar la lógica de programación para modelar estas propiedades numéricas, logramos automatizar el análisis financiero y la seguridad informática. JavaScript nos permite interactuar dinámicamente con el usuario y transformar fórmulas abstractas en soluciones visuales e inmediatas en la web.
+            </p>
+        </section>
+
+        <footer>
+            <p>Enlaces del Proyecto:</p>
+            <a href="https://github.com/tu-usuario/desafio-fibonacci-primos" target="_blank">Repositorio Git</a> | 
+            <a href="https://tu-usuario.github.io/desafio-fibonacci-primos/" target="_blank">Página Publicada</a>
+        </footer>
+
+    </div>
+
+    <script>
+        // EJERCICIO 1: Lógica de Fibonacci aplicada al Ahorro Progresivo
+        function calcularAhorroFibonacci() {
+            // Captura el dato ingresado mediante getElementById
+            let mesesInput = document.getElementById("meses").value;
+            let meses = parseInt(mesesInput);
+            
+            // Validación inicial simple
+            if (mesesInput === "" || meses <= 0) {
+                document.getElementById("resultadoFibonacci").innerHTML = "Por favor, introduce un número de meses válido (mayor a 0).";
+                return;
+            }
+
+            // Variables básicas para el ciclo de Fibonacci sin vectores
+            let a = 0;
+            let b = 1;
+            let c = 0;
+            let totalAhorrado = 0;
+            let textoResultado = "<strong>Cronograma de Ahorros:</strong><br>";
+
+            // Ciclo para calcular los valores mes a mes
+            for (let i = 1; i <= meses; i++) {
+                // En la serie de Fibonacci: el primer término es 1, el segundo es 1, luego se suman
+                if (i === 1) {
+                    c = 1;
+                } else {
+                    c = a + b;
+                    a = b;
+                    b = c;
+                }
+                
+                totalAhorrado = totalAhorrado + c;
+                textoResultado = textoResultado + "Mes " + i + ": Bs. " + c + "<br>";
+            }
+
+            // Agregamos el total acumulado al final del texto
+            textoResultado = textoResultado + "<br><strong>¡Total acumulado final: Bs. " + totalAhorrado + "!</strong>";
+            
+            // Mostramos el resultado en la página web
+            document.getElementById("resultadoFibonacci").innerHTML = textoResultado;
+        }
+
+        // EJERCICIO 2: Lógica para verificar si un número es Primo
+        function verificarCodigoPrimo() {
+            // Captura el dato ingresado mediante getElementById
+            let numeroInput = document.getElementById("codigoSeguridad").value;
+            let numero = parseInt(numeroInput);
+
+            // Validación inicial simple
+            if (numeroInput === "" || numero <= 0) {
+                document.getElementById("resultadoPrimos").innerHTML = "Por favor, introduce un código numérico válido (mayor a 0).";
+                return;
+            }
+
+            if (numero === 1) {
+                document.getElementById("resultadoPrimos").innerHTML = "El número 1 no se considera primo por definición (solo tiene 1 divisor). Tu clave no es óptima.";
+                return;
+            }
+
+            let contadorDivisores = 0;
+
+            // Ciclo para contar cuántos divisores exactos tiene el número
+            for (let i = 1; i <= numero; i++) {
+                if (numero % i === 0) {
+                    contadorDivisores++;
+                }
+            }
+
+            // Un número es primo si y solo si tiene exactamente 2 divisores (1 y él mismo)
+            if (contadorDivisores === 2) {
+                document.getElementById("resultadoPrimos").innerHTML = "✔️ <strong>El número " + numero + " es PRIMO.</strong><br>Es altamente seguro para usarse como código de acceso básico.";
+            } else {
+                document.getElementById("resultadoPrimos").innerHTML = "❌ <strong>El número " + numero + " NO es primo.</strong><br>Tiene " + contadorDivisores + " divisores. No se recomienda para claves de seguridad.";
+            }
+        }
+    </script>
+</body>
+</html>
